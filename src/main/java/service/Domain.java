@@ -1,16 +1,12 @@
+package service;
 
-import dao.RoleDAO;
 import entry.Dept;
 import entry.Employee;
 import entry.Role;
-import service.DeptService;
-import service.EmployeeService;
-import service.RoleService;
 
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 
 /**
@@ -34,7 +30,7 @@ public class Domain {
 //        System.out.println(res);
    //    domain.getDept(1110320182238101458L);
 
-//        domain.addEmployee("Petya", 15000, "11/01/1985",1120320180033154538L);
+   //     domain.addEmployee("PETR", 1000, "1999/02/25",1120320180033154538L);
 //        domain.addEmployee("Vasya", 12000, "25/11/2010",1120320180033154538L);
     //   domain.getEmployee(1120320180010551025L);
 
@@ -44,11 +40,16 @@ public class Domain {
         RoleService roleDAO = new RoleService();
         Role role = roleDAO.get(4321);
         System.out.println(role);
-        Dept dept = new Dept("new","ua2");
-       // System.out.println(deptService.delete(1230320180056579405L, role.getWrite()));
+       // Dept dept = new Dept("newww","ua222");
+
+
+      System.out.println(deptService.delete(1230320182224085264L, role.getWrite()));
         //System.out.println(deptService.get(1230320180056579405L, 0));
-        System.out.println(deptService.create(dept,1));
-       // System.out.println(domain.addDept(role.getWrite(), "NewDept1", "UA1"));
+       // System.out.println(deptService.create(dept,1));
+        //System.out.println(domain.addDept(role.getWrite(), "DepOne", "Ukraine"));
+
+
+
 
 
     }
