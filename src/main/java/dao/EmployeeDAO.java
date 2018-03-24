@@ -7,10 +7,10 @@ import java.sql.SQLException;
 
 public interface EmployeeDAO {
 
-    void create(Employee employee) throws SQLException;
+    boolean create(Employee employee, Integer write) throws SQLException;
 
-    Employee get(Long id) throws SQLException;
+    Employee get(Long id, Integer read) throws SQLException;
 
-    boolean delete(Long Id) throws SQLException;
+    boolean delete(Long Id, Integer write) throws SQLException;
 
 }

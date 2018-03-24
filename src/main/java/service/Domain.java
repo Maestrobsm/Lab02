@@ -36,26 +36,33 @@ public class Domain {
 
 //        Boolean bol = employeeService.deleteEmployee(1120320180012561973L);
 //        System.out.println("Delete "+bol);
-        DeptService deptService = new DeptService();
+
+        //ROLE
         RoleService roleDAO = new RoleService();
         Role role = roleDAO.get(4321);
         System.out.println(role);
 
+        //DEPT CRUD
+        DeptService deptService = new DeptService();
 
 
-      System.out.println(deptService.delete(1230320182224085264L, role.getWrite()));
-        //System.out.println(deptService.get(1230320180056579405L, 0));
-       // System.out.println(deptService.create(dept,1));
-        //System.out.println(domain.addDept(role.getWrite(), "DepOne", "Ukraine"));
+        Dept dept = new Dept("1-st","UA");
+//      System.out.println(deptService.delete(1230320182224085264L, role.getWrite()));
+//        System.out.println(deptService.get(1230320180056579405L, role.getRead()));
+//        System.out.println(deptService.create(dept,role.getWrite()));
 
-
-
+    //Employee CRUD
+        EmployeeService employeeService = new EmployeeService();
+      //  System.out.println(domain.addEmployee("PETR", 1000, "1999/02/25",1120320180033154538L, role.getWrite()));
+      //  System.out.println(employeeService.get(1240320180622445703L, 0));
+      //  System.out.println(employeeService.delete(1120320180034295839L, 0));
 
 
     }
 
-    private void addEmployee(String name, Integer sall, String date1, Long deptNo)
+    private boolean addEmployee(String name, Integer sall, String date1, Long deptNo, Integer write)
             throws SQLException, ParseException {
+        boolean reslt = false;
 
         SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyyy") ;
         java.util.Date convDate = sdf.parse(date1);
@@ -64,36 +71,11 @@ public class Domain {
         EmployeeService employeeService = new EmployeeService();
 
         Employee employee = new Employee(name, sall, convSQLDate, deptNo);
-        employeeService.create(employee);
+        reslt = employeeService.create(employee, write);
         System.out.println(employee);
+        return reslt;
     }
 
-
-    private void getEmployee (Long id) throws SQLException {
-        EmployeeService employeeService = new EmployeeService();
-        Employee employee = employeeService.get(id);
-        System.out.println(employee);
-    }
-
-    private boolean addDept(Integer write, String Name, String loc) {
-            DeptService deptService = new DeptService();
-            boolean result = false;
-            Dept dept = new Dept(Name, loc);
-
-            try {
-                result =deptService.create(dept, write);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            System.out.println(dept);
-            return result;
-        }
-
-        private void getDept (Integer read, Long id) throws SQLException {
-            DeptService deptService = new DeptService();
-            Dept dept = deptService.get(id, read);
-            System.out.println(dept);
-        }
     }
 
 //        Calendar calendar = Calendar.getInstance();

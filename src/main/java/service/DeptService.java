@@ -65,7 +65,7 @@ public class DeptService extends JDBC implements DeptDAO {
 
     public Dept get(Long deptNo, Integer read) throws SQLException {
         Dept dept = new Dept();
-        if (read ==1) {
+        if (read == 1) {
         PreparedStatement preparedStatement = null;
 
         String qvery = "SELECT ob.NAME \"Name\", par.TEXT_VALUE \"Loc\", ob.OBJECT_ID \"Id\"\n" +
@@ -96,8 +96,7 @@ public class DeptService extends JDBC implements DeptDAO {
                 connection.close();
             }
         }return dept;
-        }else
-        return dept;
+        } else return dept;
     }
 
     public boolean delete(Long Id, Integer write) throws SQLException {
@@ -127,7 +126,7 @@ public class DeptService extends JDBC implements DeptDAO {
             }
         }
         return result;
-    }else return result;
+        } else return result;
     }
 
 }
