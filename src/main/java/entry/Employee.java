@@ -3,20 +3,23 @@ package entry;
 import id.CreatorId;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 
 public class Employee extends CreatorId {
     private String name;
     private Integer salary;
-    private Date date;
+    private String date;
     private Long deptNo;
     private Long idObj;
     private Long idObjTyp;
     private Long idSal;
     private Long idDat;
     private Long idDept;
+    private ArrayList<Long> listDeptId = new ArrayList<Long>();
 
-    public Employee(String name, Integer salary, Date date, Long deptNo) {
+
+    public Employee(String name, Integer salary, String date, Long deptNo) {
         this.name = name;
         this.salary = salary;
         this.date = date;
@@ -28,7 +31,7 @@ public class Employee extends CreatorId {
         idDept = getAttribId();
     }
 
-    public Employee(String name, Integer salary, Date date, Long deptNO, Long id) {
+    public Employee(String name, Integer salary, String date, Long deptNO, Long id) {
         this.name = name;
         this.salary = salary;
         this.date = date;
@@ -64,11 +67,11 @@ public class Employee extends CreatorId {
         this.salary = salary;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -118,6 +121,14 @@ public class Employee extends CreatorId {
 
     public void setIdDept(Long idDept) {
         this.idDept = idDept;
+    }
+
+    public ArrayList<Long> getListDeptId() {
+        return listDeptId;
+    }
+
+    public void setListDeptId(ArrayList<Long> listDeptId) {
+        this.listDeptId = listDeptId;
     }
 
     @Override

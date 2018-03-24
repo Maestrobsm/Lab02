@@ -6,7 +6,6 @@ import entry.Role;
 
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 
 /**
@@ -20,19 +19,6 @@ public class Domain {
         DeptService deptService = new DeptService();
         EmployeeService employeeService = new EmployeeService();
 
-//   DeptService deptService = new DeptService();
-//       Boolean bol = deptService.delete(1110320182238102254L);
-//        System.out.println("Delete "+bol);
-
-//        System.out.println(res);
-   //    domain.getDept(1110320182238101458L);
-
-   //     domain.addEmployee("Petya", 1000, "1999/02/25",1120320180033161618L);
-//        domain.addEmployee("Vasya", 12000, "25/11/2010",1120320180033161618L);
-    //   domain.getEmployee(1120320180010551025L);
-
-//        Boolean bol = employeeService.deleteEmployee(1120320180012561973L);
-//        System.out.println("Delete "+bol);
 
         //ROLE
         RoleService roleDAO = new RoleService();
@@ -40,57 +26,28 @@ public class Domain {
         System.out.println(role);
 
         //DEPT CRUD
-        Dept dept = new Dept("ACCOUNTING","NEW YORK");
+        Dept dept = new Dept("OPERATIONS","BOSTON");
 //        deptService.create(dept, 1);
+//        domain.addDept("ACCOUNTING","NEW YORK");
 //        domain.addDept("RESEARCH","DALLAS");
 //        domain.addDept("SALES","CHICAGO");
 //        boolean res = domain.addDept("OPERATIONS","BOSTON");
-      //  Dept dept = new Dept("1-st","UA");
-//      System.out.println(deptService.delete(1230320182224085264L, role.getWrite()));
+        //  Dept dept = new Dept("1-st","UA");
+//        System.out.println(deptService.delete(1250320180032113225L, role.getWrite()));
 //        System.out.println(deptService.get(1230320180056579405L, role.getRead()));
 //        System.out.println(deptService.create(dept,role.getWrite()));
 
-    //Employee CRUD
-        System.out.println(domain.addEmployee("Vasya", 12000, "25/11/2010", 1240320180642278795L, role.getWrite()));
-      //  System.out.println(employeeService.get(1240320180622445703L, 0));
-     //   System.out.println(employeeService.delete(1240320180637356154L, 1));
+        //Employee CRUD
+        Employee employee = new Employee("Petya",15000,"2018/03/24",1240320180642278795L);
 
-
-    }
-
-    private boolean addEmployee(String name, Integer sall, String date1, Long deptNo, Integer write)
-            throws SQLException, ParseException {
-        boolean reslt = false;
-
-        SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyyy") ;
-        java.util.Date convDate = sdf.parse(date1);
-        java.sql.Date convSQLDate = new java.sql.Date(convDate.getTime());
-
-        EmployeeService employeeService = new EmployeeService();
-
-        Employee employee = new Employee(name, sall, convSQLDate, deptNo);
-        reslt = employeeService.create(employee, write);
-        System.out.println(employee);
-        return reslt;
-    }
+//         System.out.println(domain.addEmployee("test3", 2000, "2018/03/24", 1240320180642278795L, role.getWrite()));
+         System.out.println(employeeService.get(1250320180107483626L, 1));
+//         System.out.println(employeeService.delete(1250320180055012069L, 1));
+//         System.out.println(employeeService.create(employee, 1));
 
     }
 
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.set(1994, 1,11);
-//
-//        EmployeeService employeeService = new EmployeeService();
-//
-//        Employee employee = new Employee();
-//        employee.setName("Bogdan");
-//        employee.setSalary(20000);
-//        employee.setDate(new java.sql.Date(calendar.getTime().getTime()));
-//        employee.setDeptNo(12345678L);
-//
-//        employeeService.addEmp(employee);
-//        System.out.println(employee);
+}
 
-//        Employee employee = employeeService.getEmp(1080320182037210445L);
-//        System.out.println(employee);
 
 

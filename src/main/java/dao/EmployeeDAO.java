@@ -1,8 +1,8 @@
 package dao;
 
 import entry.Employee;
-
 import java.sql.SQLException;
+
 
 
 public interface EmployeeDAO {
@@ -12,5 +12,4 @@ public interface EmployeeDAO {
     Employee get(Long id, Integer read) throws SQLException;
 
     boolean delete(Long Id, Integer write) throws SQLException;
-
 }

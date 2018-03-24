@@ -1,6 +1,7 @@
 package service;
 
 import dao.EmployeeDAO;
+import entry.Dept;
 import entry.Employee;
 import util.JDBC;
 
@@ -8,7 +9,7 @@ import java.sql.*;
 
 
 public class EmployeeService extends JDBC implements EmployeeDAO {
-
+    Dept dept = new Dept();
     Connection connection = getConnection();
 
     public boolean create(Employee employee, Integer write) throws SQLException {
@@ -21,7 +22,7 @@ public class EmployeeService extends JDBC implements EmployeeDAO {
             String sqlOb = "INSERT INTO OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID) VALUES(?,?,?)";
             String sqlAttr = "INSERT INTO ATTRIBUTES (ATTR_ID, NAME, OBJECT_TYPE_ID) VALUES(?,?,?)";
             String sqlParam = "INSERT INTO PARAMS (TEXT_VALUE, NUMBER_VALUE, DATE_VALUE, ATTR_ID, OBJECT_ID) VALUES(?,?," +
-                    "TO_DATE(?, 'dd/mm/yyyy'),?,?)";
+                    "to_date(?, 'yyyy/mm/dd'),?,?)";
 
             try {
                 preparedStatement = connection.prepareStatement(sqlObTyp);
@@ -59,7 +60,7 @@ public class EmployeeService extends JDBC implements EmployeeDAO {
                 preparedStatement = connection.prepareStatement(sqlParam);
                 preparedStatement.setString(1, null);
                 preparedStatement.setNull(2, Types.NULL);
-                preparedStatement.setDate(3, employee.getDate());
+                preparedStatement.setString(3, employee.getDate());
                 preparedStatement.setLong(4, employee.getIdDat());
                 preparedStatement.setLong(5, employee.getIdObj());
                 preparedStatement.executeUpdate();
@@ -87,6 +88,7 @@ public class EmployeeService extends JDBC implements EmployeeDAO {
                 if (connection != null) {
                     connection.close();
                 }
+                dept.getListEmployeeId().add(employee.getIdObj());
             }return result;
         }else return result;
     }
@@ -116,7 +118,7 @@ public class EmployeeService extends JDBC implements EmployeeDAO {
 
                     employee.setName(resultSet.getString("Name"));
                     employee.setSalary(resultSet.getInt("Salary"));
-                    employee.setDate(resultSet.getDate("Date"));
+                    employee.setDate(resultSet.getDate("Date").toString());
                     employee.setDeptNo(resultSet.getLong("DeptNo"));
                     employee.setIdObj(resultSet.getLong("Id"));
                 }
@@ -162,7 +164,7 @@ public class EmployeeService extends JDBC implements EmployeeDAO {
                 if (connection != null) {
                     connection.close();
                 }
-            }
+            } dept.getListEmployeeId().remove(Id);
             return result;
         }else return result;
     }

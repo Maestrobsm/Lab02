@@ -2,12 +2,16 @@ package entry;
 
 import id.CreatorId;
 
+import java.util.ArrayList;
+
 public class Dept extends CreatorId {
     private String deptName;
     private String location;
     private Long idObj;
     private Long idObjTyp;
     private Long idLoc;
+    private ArrayList<Long> listEmployeeId = new ArrayList<Long>();
+
 
     public Dept(String deptName, String location) {
         this.deptName = deptName;
@@ -26,6 +30,13 @@ public class Dept extends CreatorId {
     public Dept() {
     }
 
+    public ArrayList<Long> getListEmployeeId() {
+        return listEmployeeId;
+    }
+
+    public void setListEmployeeId(ArrayList<Long> listEmployeeId) {
+        this.listEmployeeId = listEmployeeId;
+    }
 
     public String getDeptName() {
         return deptName;

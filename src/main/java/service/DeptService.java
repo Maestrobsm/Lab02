@@ -2,13 +2,14 @@ package service;
 
 import dao.DeptDAO;
 import entry.Dept;
+import entry.Employee;
 import util.JDBC;
 
 import java.sql.*;
 
 public class DeptService extends JDBC implements DeptDAO {
-
     Connection connection = getConnection();
+    Employee employee = new Employee();
 
     public boolean create(Dept dept, Integer write) throws SQLException {
         boolean result = false;
@@ -57,6 +58,7 @@ public class DeptService extends JDBC implements DeptDAO {
                 if (connection != null) {
                     connection.close();
                 }
+               employee.getListDeptId().add(dept.getIdObj());
             }return result;
         }else return result;
     }
@@ -123,7 +125,7 @@ public class DeptService extends JDBC implements DeptDAO {
             if (connection != null) {
                 connection.close();
             }
-        }
+        }  employee.getListDeptId().remove(Id);
         return result;
         } else return result;
     }
