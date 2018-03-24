@@ -40,7 +40,7 @@ public class Domain {
         RoleService roleDAO = new RoleService();
         Role role = roleDAO.get(4321);
         System.out.println(role);
-       // Dept dept = new Dept("newww","ua222");
+
 
 
       System.out.println(deptService.delete(1230320182224085264L, role.getWrite()));
