@@ -46,7 +46,6 @@ public class DeptService extends JDBC implements DeptDAO {
                 preparedStatement.setDate(3, null);
                 preparedStatement.setLong(4, dept.getIdLoc());
                 preparedStatement.setLong(5, dept.getIdObj());
-                //preparedStatement.executeUpdate();
                 result = preparedStatement.executeQuery().next();
 
             } catch (SQLException e) {

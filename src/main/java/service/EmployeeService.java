@@ -76,7 +76,7 @@ public class EmployeeService extends JDBC implements EmployeeDAO {
                 preparedStatement.setDate(3, null);
                 preparedStatement.setLong(4, employee.getIdDept());
                 preparedStatement.setLong(5, employee.getIdObj());
-                preparedStatement.executeUpdate();
+                result = preparedStatement.executeQuery().next();
 
             } catch (SQLException e) {
                 e.printStackTrace();
