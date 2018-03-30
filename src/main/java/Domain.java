@@ -33,13 +33,13 @@ public class Domain {
 //         System.out.println(employeeService.create(employee, role.getWrite()));
 
         //Lazy Download
-        lazyDownload("DEPT"); // or "EMPLOYEE"
+        lazyDownload("DEPT",role.getRead()); // or "EMPLOYEE"
 
     }
 
-    private static void lazyDownload(String typeName) throws SQLException {
+    private static void lazyDownload(String typeName, Integer read) throws SQLException {
         EntityService entityService = new EmployeeService();
-        List<Entity> resultList = entityService.getAll( typeName, 1);
+        List<Entity> resultList = entityService.getAll( typeName, read);
         for (Entity entity: resultList) {
             System.out.println(entity.getIdObj());
         }
