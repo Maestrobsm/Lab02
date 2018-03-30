@@ -1,47 +1,39 @@
 package service;
 
-import dao.DeptDAO;
 import entry.Dept;
-import entry.Employee;
-import util.JDBC;
+import entry.Entity;
 
 import java.sql.*;
 
-public class DeptService extends JDBC implements DeptDAO {
-    Connection connection = getConnection();
-    Employee employee = new Employee();
 
-    public boolean create(Dept dept, Integer write) throws SQLException {
+public class DeptService extends EntityService{
+
+    public boolean create(Entity entity, Integer write) throws SQLException {
         boolean result = false;
+        Dept dept = (Dept)entity;
 
         if ( write == 1 ) {
             PreparedStatement preparedStatement = null;
 
-            String sqlObTyp = "INSERT INTO OBJECT_TYPES (OBJECT_TYPE_ID, NAME) VALUES(?,?)";
-            String sqlObj = "INSERT INTO OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID) VALUES(?,?,?)";
-            String sqlAttr = "INSERT INTO ATTRIBUTES (ATTR_ID, NAME, OBJECT_TYPE_ID) VALUES(?,?,?)";
-            String sqlParam = "INSERT INTO PARAMS (TEXT_VALUE, NUMBER_VALUE, DATE_VALUE, ATTR_ID, OBJECT_ID) VALUES(?,?," +
-                    "to_date(?, 'dd/mm/yyyy'),?,?)";
-
             try {
-                preparedStatement = connection.prepareStatement(sqlObTyp);
+                preparedStatement = connection.prepareStatement(SQLDAO.CREATEOBTYPE.QUERY);
                 preparedStatement.setLong(1, dept.getIdObjTyp());
                 preparedStatement.setString(2, "DEPT");
                 preparedStatement.executeUpdate();
 
-                preparedStatement = connection.prepareStatement(sqlObj);
+                preparedStatement = connection.prepareStatement(SQLDAO.CREATEOB.QUERY);
                 preparedStatement.setLong(1, dept.getIdObj());
                 preparedStatement.setString(2, dept.getDeptName());
                 preparedStatement.setLong(3, dept.getIdObjTyp());
                 preparedStatement.executeUpdate();
 
-                preparedStatement = connection.prepareStatement(sqlAttr);
+                preparedStatement = connection.prepareStatement(SQLDAO.CREATEATR.QUERY);
                 preparedStatement.setLong(1, dept.getIdLoc());
                 preparedStatement.setString(2, "LOC");
                 preparedStatement.setLong(3, dept.getIdObjTyp());
                 preparedStatement.executeUpdate();
 
-                preparedStatement = connection.prepareStatement(sqlParam);
+                preparedStatement = connection.prepareStatement(SQLDAO.CREATEPARAM.QUERY);
                 preparedStatement.setString(1, dept.getLocation());
                 preparedStatement.setNull(2, Types.NULL);
                 preparedStatement.setDate(3, null);
@@ -58,10 +50,10 @@ public class DeptService extends JDBC implements DeptDAO {
                 if (connection != null) {
                     connection.close();
                 }
-               employee.getListDeptId().add(dept.getIdObj());
             }return result;
         }else return result;
     }
+
 
 
     public Dept get(Long deptNo, Integer read) throws SQLException {
@@ -69,15 +61,8 @@ public class DeptService extends JDBC implements DeptDAO {
         if (read == 1) {
         PreparedStatement preparedStatement = null;
 
-        String qvery = "SELECT ob.NAME \"Name\", par.TEXT_VALUE \"Loc\", ob.OBJECT_ID \"Id\"\n" +
-                "FROM OBJECTS ob\n" +
-                "INNER JOIN OBJECT_TYPES obt ON obt.OBJECT_TYPE_ID= ob.OBJECT_TYPE_ID\n" +
-                "INNER JOIN ATTRIBUTES atr ON obt.OBJECT_TYPE_ID = atr.OBJECT_TYPE_ID and atr.NAME = 'LOC'\n" +
-                "INNER JOIN PARAMS par ON atr.ATTR_ID = par.ATTR_ID\n" +
-                "WHERE ob.OBJECT_ID = ?";
-
         try {
-            preparedStatement = connection.prepareStatement(qvery);
+            preparedStatement = connection.prepareStatement(SQLDept.GETDEPT.QUERY);
             preparedStatement.setLong(1,deptNo);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -100,34 +85,19 @@ public class DeptService extends JDBC implements DeptDAO {
         } else return dept;
     }
 
-    public boolean delete(Long Id, Integer write) throws SQLException {
-        boolean result = false;
-        if (write ==1) {
-        Long type_id;
-        PreparedStatement preparedStatement = null;
-        String sqlId = "SELECT ob.OBJECT_TYPE_ID \"Type_Id\" FROM OBJECTS ob WHERE ob.OBJECT_ID = ?";
-        String sql = "DELETE FROM OBJECT_TYPES WHERE OBJECT_TYPE_ID = ?";
-        try { preparedStatement = connection.prepareStatement(sqlId);
-            preparedStatement.setLong(1,Id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                type_id = resultSet.getLong("Type_Id");
-                preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setLong(1, type_id);
-                result = preparedStatement.executeQuery().next();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-            if (connection != null) {
-                connection.close();
-            }
-        }  employee.getListDeptId().remove(Id);
-        return result;
-        } else return result;
+    enum SQLDept {
+        GETDEPT("SELECT ob.NAME \"Name\", par.TEXT_VALUE \"Loc\", ob.OBJECT_ID \"Id\"\n" +
+                "FROM OBJECTS ob\n" +
+                "INNER JOIN OBJECT_TYPES obt ON obt.OBJECT_TYPE_ID= ob.OBJECT_TYPE_ID\n" +
+                "INNER JOIN ATTRIBUTES atr ON obt.OBJECT_TYPE_ID = atr.OBJECT_TYPE_ID and atr.NAME = 'LOC'\n" +
+                "INNER JOIN PARAMS par ON atr.ATTR_ID = par.ATTR_ID\n" +
+                "WHERE ob.OBJECT_ID = ?");
+
+        String QUERY;
+
+        SQLDept(String QUERY) {
+            this.QUERY = QUERY;
+        }
     }
 
 }

@@ -1,7 +1,6 @@
 package service;
 
 import dao.RoleDAO;
-import entry.Employee;
 import entry.Role;
 import util.JDBC;
 

@@ -1,51 +1,28 @@
 package entry;
 
-import id.CreatorId;
-
-import java.sql.Date;
-import java.util.ArrayList;
-
-
-public class Employee extends CreatorId {
+public class Employee extends Entity{
     private String name;
     private Integer salary;
     private String date;
     private Long deptNo;
-    private Long idObj;
-    private Long idObjTyp;
     private Long idSal;
     private Long idDat;
     private Long idDept;
-    private ArrayList<Long> listDeptId = new ArrayList<Long>();
 
 
     public Employee(String name, Integer salary, String date, Long deptNo) {
+        super();
         this.name = name;
         this.salary = salary;
         this.date = date;
         this.deptNo = deptNo;
-        idObj = getObjectId();
-        idObjTyp = getTypeId();
-        idSal = getAttribId();
-        idDat = getAttribId();
-        idDept = getAttribId();
-    }
-
-    public Employee(String name, Integer salary, String date, Long deptNO, Long id) {
-        this.name = name;
-        this.salary = salary;
-        this.date = date;
-        this.deptNo = deptNO;
-        this.idObj = id;
-        idObjTyp = getTypeId();
         idSal = getAttribId();
         idDat = getAttribId();
         idDept = getAttribId();
     }
 
     public Employee() {
-        idObj = getObjectId();
-        idObjTyp = getTypeId();
+        super();
         idSal = getAttribId();
         idDat = getAttribId();
         idDept = getAttribId();
@@ -83,22 +60,6 @@ public class Employee extends CreatorId {
         this.deptNo = deptNo;
     }
 
-    public Long getIdObj() {
-        return idObj;
-    }
-
-    public void setIdObj(Long idObj) {
-        this.idObj = idObj;
-    }
-
-    public Long getIdObjTyp() {
-        return idObjTyp;
-    }
-
-    public void setIdObjTyp(Long idObjTyp) {
-        this.idObjTyp = idObjTyp;
-    }
-
     public Long getIdSal() {
         return idSal;
     }
@@ -123,14 +84,6 @@ public class Employee extends CreatorId {
         this.idDept = idDept;
     }
 
-    public ArrayList<Long> getListDeptId() {
-        return listDeptId;
-    }
-
-    public void setListDeptId(ArrayList<Long> listDeptId) {
-        this.listDeptId = listDeptId;
-    }
-
     @Override
     public String toString() {
         return "Employee{" +
@@ -138,7 +91,7 @@ public class Employee extends CreatorId {
                 ", salary=" + salary +
                 ", date='" + date + '\'' +
                 ", deptNo='" + deptNo + '\'' +
-                ", Id='" + idObj + '\'' +
+                ", Id='" + super.getIdObj() + '\'' +
                 '}';
     }
 }
